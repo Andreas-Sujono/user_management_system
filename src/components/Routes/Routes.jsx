@@ -5,7 +5,9 @@ import ReactLoading from 'react-loading';
 import routesData from './data'
 
 const LoadingBar = () => 
-    <ReactLoading type='spin' color='black' height={50} width={50} />
+    <div style={{width:'100vw', height:'100vh', display:'flex', justifyContent: 'center', alignItems: 'center'}}>
+        <ReactLoading type='spin' color='black' height={50} width={50} />
+    </div>
 
 function Routes(props) {
     return (

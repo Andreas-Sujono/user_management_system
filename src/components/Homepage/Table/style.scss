@@ -1,0 +1,46 @@
+.homepage-table-container{
+    margin-top: 15px;
+    color: #0C0E45;
+    overflow: auto;
+    height: 300px;
+    >table{
+        width:100%;
+        thead{background: #F5F5F7;}
+        td, th{
+            padding: 10px;
+            text-align: center;
+            border:0;
+        }
+        th{
+            font-weight: 500;
+            font-size: 14px;
+            line-height: 22px;
+            color: #57575a;
+            white-space: nowrap;
+        }
+        tbody{
+            td{
+                border-bottom:1px solid #E4E4EB;
+            }
+            .id{color: #73748F;}
+            .first-name{font-weight: 600;}
+            .action{
+                display: flex;
+                padding: 10px;
+                gap:10px;
+                justify-content: center;
+                align-items: center;
+                .edit-btn{
+                    color: #40A3FF;
+                    font-size: 20px;
+                }
+                .delete-btn{
+                    color: #FF597E;
+                    font-size: 20px;
+                }
+            }
+            
+        }
+        
+    }
+}

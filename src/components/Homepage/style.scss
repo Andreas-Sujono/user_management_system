@@ -1,0 +1,66 @@
+.homepage{
+    width:90%;
+    max-width: 800px;
+    margin: auto;
+    color: #0C0E45;
+    >h1, >h2{text-align: center;}
+    >h1{
+        font-size: 24px;
+        margin:0;
+        margin-top: 30px;
+    }
+    >h2{
+        font-size: 18px;
+        font-weight: 400;
+        margin:0;
+    }
+
+    .search-bar{
+        margin-top: 30px;
+        position: relative;
+        .icon{
+            position: absolute;
+            top:12px;
+            left:10px;
+        }
+        .search-input{
+            width: 100%;
+            height: 40px;
+            padding:6px;
+            padding-left: 32px;
+            min-width: 300px;
+            background: #FCFCFF;
+            border: 1px solid #EBEBF2;
+            box-sizing: border-box;
+            border-radius: 8px;
+        }
+    }
+
+    .row{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 15px;
+    }
+
+    .total-attendees{
+        color: #73748F; font-size: 15px;
+        span{color: black; font-weight: 500;}
+    }
+
+    .add-new-btn{
+        width: 150px;
+        padding:10px;
+        background-color: #40A3FF;
+        border:0;
+        border-radius: 8px;
+        color: white;
+        font-size: 14px;
+    }
+
+    .no-attendees{
+        text-align: center;
+        margin-top: 30px;
+        color: #73748F;
+    }
+}
