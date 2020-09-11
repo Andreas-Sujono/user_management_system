@@ -12,10 +12,15 @@ class UserDetail extends Component{
         dob: '',
     }
 
-    componenentDidUpdate(prevProps){
+    componentDidUpdate(prevProps){
         let isPropsSame = true
-        Object.keys(prevProps).forEach(key => {
-            if(prevProps[key] !== this.props.detail[key])
+
+        Object.keys(prevProps.detail).forEach(key => {
+            if(prevProps.detail[key] !== this.props.detail[key])
+                isPropsSame = false
+        })
+        Object.keys(this.props.detail).forEach(key => {
+            if(prevProps.detail[key] !== this.props.detail[key])
                 isPropsSame = false
         })
         if(!isPropsSame){
@@ -70,7 +75,7 @@ class UserDetail extends Component{
                     <h1>Edit Attendees</h1>
                     <form onSubmit={this.handleSubmit}>
                         <div className="input-container">
-                            <label htmlFor="firstName">First Name</label>
+                            <label htmlFor="firstName">First Name*</label>
                             <input 
                                 id="firstName" 
                                 type="text" 
@@ -82,7 +87,7 @@ class UserDetail extends Component{
                             />
                         </div>
                         <div className="input-container">
-                            <label htmlFor="lastName">Last Name</label>
+                            <label htmlFor="lastName">Last Name*</label>
                             <input 
                                 id="lastName" 
                                 type="text" 
@@ -94,7 +99,7 @@ class UserDetail extends Component{
                             />
                         </div>
                         <div className="input-container">
-                            <label htmlFor="email">email</label>
+                            <label htmlFor="email">email*</label>
                             <input 
                                 id="email" 
                                 type="email" 
@@ -106,7 +111,7 @@ class UserDetail extends Component{
                             />
                         </div>
                         <div className="input-container">
-                            <label htmlFor="dob">Date of Birth</label>
+                            <label htmlFor="dob">Date of Birth*</label>
                             <input 
                                 id="dob" 
                                 type="date"

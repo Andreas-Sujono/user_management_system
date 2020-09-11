@@ -74,7 +74,17 @@ class Homepage extends Component{
         this.setState({searchResult})
     }
 
-    mockHTPPRequest = (type, data ={}) => new Promise( resolve => resolve(data))
+    mockHTPPRequest = async (type, data ={}) => {
+        // let url = 'https://jsonplaceholder.typicode.com/posts' //default is GET
+        // if(type === 'POST')
+        //     url = 'https://jsonplaceholder.typicode.com/posts' 
+        // else if(type === 'PUT')
+        //     url = 'https://jsonplaceholder.typicode.com/posts/1'
+        // else if(type === 'DELETE')
+        //     url = 'https://jsonplaceholder.typicode.com/posts/1'
+        // return await fetch('url', data).then(res => res.json())
+        return data
+    }
 
     handleEdit = async ({id, type, firstName, lastName, email, dob}) => {
         const {attendees} = this.state
@@ -164,7 +174,7 @@ class Homepage extends Component{
                     !attendees.length && <div className="no-attendees">No Attendee so far</div>
                 }
                 {
-                    (attendees.length && search && !searchResult.length) ? <div className="no-attendees"> Not Found </div> : <></>
+                    (attendees.length && search && !searchResult.length) ? <div className="no-attendees">Not Found</div> : <></>
                 }
     
                 {
