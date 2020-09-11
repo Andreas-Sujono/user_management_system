@@ -26,10 +26,10 @@ function Table(props) {
                                 <td className="first-name">{item.firstName}</td>
                                 <td className="last-name">{item.lastName}</td>
                                 <td className="email">{item.email}</td>
-                                <td className="dob">{new Date(item.dob).toLocaleDateString('en-us')}</td>
+                                <td className="dob">{item.dob.toLocaleDateString('en-us')}</td>
                                 <td className="action">
-                                    <AiOutlineEdit className="icon edit-btn"/>
-                                    <AiOutlineDelete className="icon delete-btn"/>
+                                    <AiOutlineEdit className="icon edit-btn" onClick={() => props.handleShowModal(item)}/>
+                                    <AiOutlineDelete className="icon delete-btn" onClick={() => props.handleEdit({id:item.id, type:'delete'})}/>
                                 </td>
                             </tr>
                         )
