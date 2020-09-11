@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow, mount } from 'enzyme';
 import Homepage from './Homepage';
 
-let attendees = [
+const attendees = [
     {
         id: 1,
         firstName: 'test1',
@@ -18,6 +18,17 @@ let attendees = [
         dob: new Date()
     },
 ]
+
+beforeAll(() => {
+    global.fetch = jest.fn();
+    fetch.mockImplementation(() => {
+        return Promise.resolve({
+          json: () => {
+            return Promise.resolve();
+          }
+        });
+      });
+})
 
 test('render title and subtitle', () => {
     let wrapper = shallow(<Homepage/>);
@@ -114,5 +125,33 @@ describe('test pagination', () => {
 })
 
 describe('test user action such as add, edit, and delete', () => {
-    
+    let wrapper;
+    beforeEach(() => {
+        wrapper = mount(<Homepage/>);
+        wrapper.setState({attendees});
+    })
+    test('add new user', () => {
+        wrapper.find('.add-new-btn').simulate('click')
+        expect(wrapper.state('detail')).toEqual({})
+        expect(wrapper.state('showModal')).toEqual(true)
+    })
+
+    test('edit user', () => {
+        wrapper.find('.homepage-table-container .action .edit-btn').first().simulate('click') //click on first row data
+        expect(wrapper.state('detail')).toEqual({...attendees[0], type:'edit'})
+        expect(wrapper.state('showModal')).toEqual(true)
+    })
+
+    test('delete user', () => {
+        window.confirm = jest.fn(() => true);
+        wrapper.find('.homepage-table-container .action .delete-btn').first().simulate('click') //click on first row data
+        expect(window.confirm.mock.calls.length).toBe(1);
+        expect(wrapper.state('detail')).toEqual({})
+
+        process.nextTick(() => {
+            expect(wrapper.state('attendees')).toEqual([attendees[1]]) //only second data left
+            expect(wrapper.state('showModal')).toEqual(false)
+        })
+        
+    })
 })

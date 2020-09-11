@@ -75,15 +75,17 @@ class Homepage extends Component{
     }
 
     mockHTPPRequest = async (type, data ={}) => {
-        // let url = 'https://jsonplaceholder.typicode.com/posts' //default is GET
-        // if(type === 'POST')
-        //     url = 'https://jsonplaceholder.typicode.com/posts' 
-        // else if(type === 'PUT')
-        //     url = 'https://jsonplaceholder.typicode.com/posts/1'
-        // else if(type === 'DELETE')
-        //     url = 'https://jsonplaceholder.typicode.com/posts/1'
-        // return await fetch('url', data).then(res => res.json())
-        return data
+        let url = 'https://jsonplaceholder.typicode.com/posts' //default is GET
+        if(type === 'POST')
+            url = 'https://jsonplaceholder.typicode.com/posts' 
+        else if(type === 'PUT')
+            url = 'https://jsonplaceholder.typicode.com/posts/1'
+        else if(type === 'DELETE')
+            url = 'https://jsonplaceholder.typicode.com/posts/1'
+        return await fetch(url, {
+            method: type,
+            body: JSON.stringify(data)
+        }).then(res => res.json())
     }
 
     handleEdit = async ({id, type, firstName, lastName, email, dob}) => {
@@ -93,7 +95,7 @@ class Homepage extends Component{
             let data = {id: maxId +1, type, firstName, lastName, email, dob}
             let res = await this.mockHTPPRequest('POST', data)
 
-            this.setState( prevState => ({attendees: [...prevState.attendees, res]}))
+            this.setState( prevState => ({attendees: [...prevState.attendees, data]}))
         }
             
         else if(type === 'edit'){
@@ -103,7 +105,7 @@ class Homepage extends Component{
             this.setState( prevState => ({attendees: 
                 prevState.attendees.map(item => {
                     if(item.id === id)
-                        return res
+                        return data
                     return item
                 })
             }))
