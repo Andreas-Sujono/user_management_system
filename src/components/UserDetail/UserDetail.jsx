@@ -1,105 +1,129 @@
-import React, {useState, useEffect} from 'react';
+import React, {Component} from 'react';
 import { Modal } from 'react-responsive-modal';
 
 import 'react-responsive-modal/styles.css';
 import './style.scss'
 
-function UserDetail(props) {
-    const [firstName, setFirstName] = useState('')
-    const [lastName, setLastName] = useState('')
-    const [email, setEmail] = useState('')
-    const [dateofBirth, setDateofBirth] = useState('')
+class UserDetail extends Component{
+    state = {
+        firstName: '',
+        lastName: '',
+        email: '',
+        dob: '',
+    }
 
+    componenentDidUpdate(prevProps){
+        let isPropsSame = true
+        Object.keys(prevProps).forEach(key => {
+            if(prevProps[key] !== this.props.detail[key])
+                isPropsSame = false
+        })
+        if(!isPropsSame){
+            const {firstName, lastName, email, dob} = this.props.detail
+            this.setState({
+                firstName:firstName || '',
+                lastName: lastName || '',
+                email: email || '',
+                dob: dob ? this.dateToString(dob): '',
+            })
+        }
+    }
 
-    const addZero = (num) => num > 9 ? String(num) : `0${num}`
+    addZero = (num) => num > 9 ? String(num) : `0${num}`
 
-    const dateToString = (date) => {
+    dateToString = (date) => {
         let yy = date.getFullYear()
-        let mm = addZero(date.getMonth() + 1)
-        let dd = addZero(date.getDate())
+        let mm = this.addZero(date.getMonth() + 1)
+        let dd = this.addZero(date.getDate())
         return `${yy}-${mm}-${dd}`
     }
 
-    useEffect(() => {
-        if(props.detail){
-            setFirstName(props.detail.firstName || '')
-            setLastName(props.detail.lastName || '')
-            setEmail(props.detail.email || '')
-            setDateofBirth(props.detail.dob ? dateToString(props.detail.dob ) : '')
-        }
-    }, [props.detail])
-    
-
-    const handleSubmit = (e) => {
+    handleSubmit = (e) => {
         e.preventDefault()
-        props.handleEdit({
-            id: props.detail.id || 'new',
-            type: props.detail.type || 'add',
+        const {firstName, lastName, email, dob} = this.state
+
+        this.props.handleEdit({
+            id: this.props?.detail?.id || 'new',
+            type: this.props?.detail?.type || 'add',
             firstName,
             lastName,
             email,
-            dob: new Date(Date.parse(dateofBirth))
+            dob: new Date(Date.parse(dob))
         })
-        props.handleClose()
+        this.props.handleClose()
     }
 
-    return (
-        <Modal
-          open={props.isModalOpen}
-          onClose={() => props.handleClose()}
-        >
-            <div className="UserDetail-page">
-                <h1>Edit Attendees</h1>
-                <form onSubmit={handleSubmit}>
-                    <div className="input-container">
-                        <label htmlFor="firstName">First Name</label>
-                        <input 
-                            id="firstName" 
-                            type="text" 
-                            placeholder="Enter your first name" 
-                            required
-                            value={firstName}
-                            onChange={e => setFirstName(e.target.value)}
-                        />
-                    </div>
-                    <div className="input-container">
-                        <label htmlFor="lastName">Last Name</label>
-                        <input 
-                            id="lastName" 
-                            type="text" 
-                            placeholder="Enter your last name" 
-                            required
-                            value={lastName}
-                            onChange={e => setLastName(e.target.value)}
-                        />
-                    </div>
-                    <div className="input-container">
-                        <label htmlFor="email">email</label>
-                        <input 
-                            id="email" 
-                            type="email" 
-                            placeholder="Enter your email" 
-                            required
-                            value={email}
-                            onChange={e => setEmail(e.target.value)}
-                        />
-                    </div>
-                    <div className="input-container">
-                        <label htmlFor="dob">Date of Birth</label>
-                        <input 
-                            id="dob" 
-                            type="date"
-                            required
-                            value={dateofBirth}
-                            onChange={e => setDateofBirth(e.target.value)}
-                        />
-                    </div>
-                    <input type="submit" value="Edit"/>
-                </form>
-            </div>
-        </Modal>
-        
-    );
+    handleChange = (e) => {
+        this.setState({
+            [e.target.name]: e.target.value
+        })
+    }
+
+    render(){
+        const {firstName, lastName, email, dob} = this.state
+        return (
+            <Modal
+              open={this.props.isModalOpen}
+              onClose={() => this.props.handleClose()}
+            >
+                <div className="UserDetail-page">
+                    <h1>Edit Attendees</h1>
+                    <form onSubmit={this.handleSubmit}>
+                        <div className="input-container">
+                            <label htmlFor="firstName">First Name</label>
+                            <input 
+                                id="firstName" 
+                                type="text" 
+                                placeholder="Enter your first name" 
+                                required
+                                value={firstName}
+                                name="firstName"
+                                onChange={this.handleChange}
+                            />
+                        </div>
+                        <div className="input-container">
+                            <label htmlFor="lastName">Last Name</label>
+                            <input 
+                                id="lastName" 
+                                type="text" 
+                                placeholder="Enter your last name" 
+                                required
+                                value={lastName}
+                                name="lastName"
+                                onChange={this.handleChange}
+                            />
+                        </div>
+                        <div className="input-container">
+                            <label htmlFor="email">email</label>
+                            <input 
+                                id="email" 
+                                type="email" 
+                                placeholder="Enter your email" 
+                                required
+                                value={email}
+                                name="email"
+                                onChange={this.handleChange}
+                            />
+                        </div>
+                        <div className="input-container">
+                            <label htmlFor="dob">Date of Birth</label>
+                            <input 
+                                id="dob" 
+                                type="date"
+                                required
+                                value={dob}
+                                name="dob"
+                                onChange={this.handleChange}
+                            />
+                        </div>
+                        <input type="submit" value="Edit"/>
+                    </form>
+                </div>
+            </Modal> 
+        );
+    }
+
+
 }
 
 export default UserDetail;
