@@ -4,6 +4,7 @@ import {FiSearch} from 'react-icons/fi'
 import Table from './Table'
 import Pagination from './Pagination'
 import UserDetail from 'components/UserDetail'
+import LoadingBar from 'components/LoadingBar'
 
 import './style.scss'
 
@@ -57,7 +58,14 @@ class Homepage extends Component{
         searchResult: [],
         currentPage: 1,
         detail: {},
-        showModal: false
+        showModal: false,
+        isLoading: false
+    }
+
+    setLoading = (loading) => {
+        this.setState({
+            isLoading: loading
+        })
     }
 
     handleSearch = (e) => {
@@ -89,6 +97,7 @@ class Homepage extends Component{
     }
 
     handleEdit = async ({id, type, firstName, lastName, email, dob}) => {
+        this.setLoading(true)
         const {attendees} = this.state
         let maxId = attendees.reduce((acc,item) => Math.max(acc, item.id),0)
         if(type === "add"){
@@ -120,11 +129,15 @@ class Homepage extends Component{
                 prevState.attendees.filter(item => item.id !== id)
             }))
         }
+        this.setLoading(false)
     }
 
     render(){
         let maxContentPerPage = 5
-        const {attendees, search, searchResult, currentPage, detail, showModal} = this.state
+        const {attendees, search, searchResult, currentPage, detail, showModal, isLoading} = this.state
+
+        if(isLoading)
+            return <LoadingBar/>
 
         return (
             <div className="homepage">
