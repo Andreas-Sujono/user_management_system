@@ -11,7 +11,7 @@ const detail = {
     firstName: 'test1',
     lastName: 'test1',
     email: 'test1@gmail.com',
-    dob: new Date()
+    dob: new Date().getTime()
 }
 
 describe('test form field to be filled', () => {
@@ -29,7 +29,7 @@ describe('test form field to be filled', () => {
         expect(wrapper.state('firstName')).toBe(detail.firstName)
         expect(wrapper.state('lastName')).toBe(detail.lastName)
         expect(wrapper.state('email')).toBe(detail.email)
-        expect(wrapper.state('dob')).toBe(wrapper.instance().dateToString(detail.dob))
+        expect(wrapper.state('dob')).toBe(wrapper.instance().dateToString(new Date(detail.dob)))
     })
 
     test('form is not filled when detail props is not passed', () => {

@@ -28,7 +28,7 @@ class UserDetail extends Component{
                 firstName:firstName || '',
                 lastName: lastName || '',
                 email: email || '',
-                dob: dob ? this.dateToString(dob): '',
+                dob: dob ? this.dateToString(new Date(dob)): '',
             })
         }
     }
@@ -58,7 +58,7 @@ class UserDetail extends Component{
             firstName,
             lastName,
             email,
-            dob: new Date(Date.parse(dob))
+            dob: Date.parse(dob)
         })
         this.props.handleClose()
     }

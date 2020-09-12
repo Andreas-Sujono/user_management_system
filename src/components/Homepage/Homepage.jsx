@@ -16,42 +16,42 @@ class Homepage extends Component{
                 firstName: 'Andreas',
                 lastName: 'Sujono',
                 email: 'andreassujono@gmail.com',
-                dob: new Date()
+                dob: new Date().getTime()
             },
             {
                 id: 2,
                 firstName: 'Andreas',
                 lastName: 'Sujono',
                 email: 'andreassujono@gmail.com',
-                dob: new Date()
+                dob: new Date().getTime()
             },
             {
                 id: 3,
                 firstName: 'Andreas',
                 lastName: 'Sujono',
                 email: 'andreassujono@gmail.com',
-                dob: new Date()
+                dob: new Date().getTime()
             },
             {
                 id: 4,
                 firstName: 'Andreas',
                 lastName: 'Sujono',
                 email: 'andreassujono@gmail.com',
-                dob: new Date()
+                dob: new Date().getTime()
             },
             {
                 id: 5,
                 firstName: 'Andreas',
                 lastName: 'Sujono',
                 email: 'andreassujono@gmail.com',
-                dob: new Date()
+                dob: new Date().getTime()
             },
             {
                 id: 6,
                 firstName: 'Andreas',
                 lastName: 'Sujono',
                 email: 'andreassujono@gmail.com',
-                dob: new Date()
+                dob: new Date().getTime()
             }
         ],
         search: '',

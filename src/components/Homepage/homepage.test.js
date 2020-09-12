@@ -8,14 +8,14 @@ const attendees = [
         firstName: 'test1',
         lastName: 'test1',
         email: 'test1@gmail.com',
-        dob: new Date()
+        dob: new Date().getTime()
     },
     {
         id: 2,
         firstName: 'test2',
         lastName: 'test2',
         email: 'test2@gmail.com',
-        dob: new Date()
+        dob: new Date().getTime()
     },
 ]
 
@@ -168,7 +168,7 @@ describe('test handleEdit when add / edit / delete user', () => {
             firstName: 'test',
             lastName: 'test',
             email: 'test@gmail.com',
-            dob: new Date()
+            dob: new Date().getTime()
         }
         wrapper.instance().handleEdit({
             type: 'add', ...newUser
@@ -186,7 +186,7 @@ describe('test handleEdit when add / edit / delete user', () => {
             firstName: 'UPDATED',
             lastName: 'UPDATED',
             email: 'UPDATED@gmail.com',
-            dob: new Date()
+            dob: new Date().getTime()
         }
         wrapper.instance().handleEdit({
             type: 'edit', ...updatedUser
