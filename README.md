@@ -44,6 +44,10 @@ You will also see any lint errors in the console.
 Launches the test runner in the interactive watch mode.<br />
 See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
 
+### `yarn deploy`
+
+Deploy the website through github pages. see the article at [here](https://dev.to/yuribenjamin/how-to-deploy-react-app-in-github-pages-2a1f) for further detail how to setup github pages for your own github account.<br />
+
 ### `yarn build`
 
 Builds the app for production to the `build` folder.<br />
