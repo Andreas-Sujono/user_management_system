@@ -15,12 +15,11 @@ class UserDetail extends Component{
     componentDidUpdate(prevProps){
         let isPropsSame = true
 
-        Object.keys(prevProps.detail).forEach(key => {
-            if(prevProps.detail[key] !== this.props.detail[key])
-                isPropsSame = false
-        })
-        Object.keys(this.props.detail).forEach(key => {
-            if(prevProps.detail[key] !== this.props.detail[key])
+        Object.keys(this.props.detail || []).forEach(key => {
+            if(!prevProps.detail || !prevProps.detail[key]){
+                return isPropsSame = false
+            }
+            else if(prevProps.detail[key] !== this.props.detail[key])
                 isPropsSame = false
         })
         if(!isPropsSame){
@@ -43,9 +42,15 @@ class UserDetail extends Component{
         return `${yy}-${mm}-${dd}`
     }
 
+    validateEmail = (email) => {
+        const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(String(email).toLowerCase());
+    }
+
     handleSubmit = (e) => {
         e.preventDefault()
         const {firstName, lastName, email, dob} = this.state
+        if(!firstName || !lastName || !email || !dob || !this.validateEmail(email)) return
 
         this.props.handleEdit({
             id: this.props?.detail?.id || 'new',

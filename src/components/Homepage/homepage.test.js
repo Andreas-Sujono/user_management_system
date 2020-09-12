@@ -155,3 +155,57 @@ describe('test user action such as add, edit, and delete', () => {
         
     })
 })
+
+describe('test handleEdit when add / edit / delete user', () => {
+    let wrapper;
+    beforeEach(() => {
+        wrapper = shallow(<Homepage/>);
+        wrapper.setState({attendees});
+    })
+
+    test('add new user', (done) => {
+        let newUser = {
+            firstName: 'test',
+            lastName: 'test',
+            email: 'test@gmail.com',
+            dob: new Date()
+        }
+        wrapper.instance().handleEdit({
+            type: 'add', ...newUser
+        })
+
+        process.nextTick(() => {
+            expect(wrapper.state('attendees')).toEqual([...attendees, {id:3, ...newUser}])
+            done()
+        })
+    })
+
+    test('update user of id 2', (done) => {
+        let updatedUser = {
+            id: 2,
+            firstName: 'UPDATED',
+            lastName: 'UPDATED',
+            email: 'UPDATED@gmail.com',
+            dob: new Date()
+        }
+        wrapper.instance().handleEdit({
+            type: 'edit', ...updatedUser
+        })
+
+        process.nextTick(() => {
+            expect(wrapper.state('attendees')).toEqual([attendees[0], updatedUser])
+            done()
+        })
+    })
+
+    test('delete user of id 2', (done) => {
+        wrapper.instance().handleEdit({
+            type: 'delete', id: 2
+        })
+
+        process.nextTick(() => {
+            expect(wrapper.state('attendees')).toEqual([attendees[0]])
+            done()
+        })
+    })
+})

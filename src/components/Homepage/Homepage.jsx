@@ -101,7 +101,7 @@ class Homepage extends Component{
         const {attendees} = this.state
         let maxId = attendees.reduce((acc,item) => Math.max(acc, item.id),0)
         if(type === "add"){
-            let data = {id: maxId +1, type, firstName, lastName, email, dob}
+            let data = {id: maxId +1, firstName, lastName, email, dob}
             let res = await this.mockHTPPRequest('POST', data)
 
             this.setState( prevState => ({attendees: [...prevState.attendees, data]}))
